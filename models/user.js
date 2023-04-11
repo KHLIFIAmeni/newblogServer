@@ -33,10 +33,6 @@ module.exports = (Sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        role: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
         image: {
             type: DataTypes.STRING
         }

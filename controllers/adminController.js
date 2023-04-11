@@ -52,9 +52,40 @@ const updatePhoto = function (req, res) {
         .then((response) => res.status(200).send(response))
         .then((err) => res.status(200).send(err))
 }
+const updateProfile = function (req, res) {
+    bcrypt.hash(req.body.password, 10).then((hashedPassword) => {
+        db.Adminstrator.update({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            login: req.body.login,
+            password: hashedPassword,
+            role: req.body.role,
+
+        }, { where: { id: req.params.id } })
+            .then((response) => res.status(200).send(response))
+            .then((err) => res.status(200).send(err))
+
+    })
+
+}
+const deleteAdmin = function (req, res) {
+    db.Adminstrator.destroy({ where: { id: req.params.id } })
+        .then((response) => res.status(200).send({ msg: 'deleted' }))
+        .then((err) => res.status(200).send(err))
+}
+const allAdmin = function (req, res) {
+
+    db.Adminstrator.findAll()
+        .then((response) => res.status(200).send({ msg: 'deleted' }))
+        .then((err) => res.status(200).send(err))
+}
 module.exports = {
     registerAdmin,
     profileAdmin,
     loginAdmin,
-    updatePhoto
+    updatePhoto,
+    updateProfile,
+    deleteAdmin,
+    allAdmin
+
 }
